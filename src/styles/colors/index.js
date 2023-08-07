@@ -1,0 +1,31 @@
+export const mapColors = {
+	quintile: {
+		0: "#78c6f5",
+		1: "#78c6f5",
+		2: "#6a93e7",
+		3: "#676dd8",
+		4: "#9151b9",
+		5: "#bd268e",
+	},
+	decile: {
+		10: "#bd268e",
+		9: "#af3da2",
+		8: "#9151b9",
+		7: "#7961ca",
+		6: "#676dd8",
+		5: "#6481e3",
+		4: "#6a93e7",
+		3: "#71abed",
+		2: "#78c6f5",
+		1: "#81e3fc",
+	},
+	base: "#fdd835",
+	logo: "#FAFAFA",
+	text: {
+		dark: "#fdfdfd",
+		light: "#2a2a2a",
+	},
+	disabled: "#cccccc",
+	none: "rgba(0, 0, 0, 0)",
+	unmapped: "#000000",
+};

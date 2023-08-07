@@ -1,12 +1,9 @@
+import MyReservation from "@/components/reservations/MyReservation";
 import { ProtectedRoute } from "@/context/AuthStore";
-import { ItinerarieType, useGetItineraries } from "@/services/api/itineraries";
-import { Typography, Grid, Box, CircularProgress } from "@mui/material";
-
 import MainLayout from "@/layout/main";
-import Item from "@/components/cart/Item";
-import { useState, useRef } from "react";
-import ModalTicket from "@/components/cart/ModalTicket";
-
+import { useGetMyReservations } from "@/services/api/reservations";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
+import React from "react";
 const useStyles = () => ({
 	cardButton: (theme: any) => ({
 		height: "40px",
@@ -45,25 +42,16 @@ const useStyles = () => ({
 	}),
 });
 
-export default function Home() {
+function MyReservationsPage() {
+	const { data, isLoading } = useGetMyReservations();
 	const styles = useStyles();
-	const [itinerarieSelected, setItinerarieSelected] =
-		useState<ItinerarieType | null>(null);
-	const { data, isLoading } = useGetItineraries();
-	const refModal = useRef() as any;
-
-	const handleOpenModal = (itinerarie: ItinerarieType) => {
-		setItinerarieSelected(itinerarie);
-		refModal.current.handleOpen();
-	};
-
 	return (
 		<ProtectedRoute>
 			<MainLayout>
 				<Box sx={styles.root}>
 					<Box sx={styles.container}>
 						<Typography sx={styles.title} variant="h6">
-							List of Itineraries
+							My Reservations
 						</Typography>
 						{isLoading && (
 							<Box
@@ -83,18 +71,18 @@ export default function Home() {
 							flexDirection="column"
 						>
 							{data &&
-								data.map((itinerarie) => (
-									<Item
-										key={itinerarie.id}
-										handleOpenModal={handleOpenModal}
-										itinerarie={itinerarie}
+								data.map((reservation) => (
+									<MyReservation
+										key={reservation.id}
+										reservation={reservation}
 									/>
 								))}
 						</Grid>
 					</Box>
-					<ModalTicket ref={refModal} itinerarieSelected={itinerarieSelected} />
 				</Box>
 			</MainLayout>
 		</ProtectedRoute>
 	);
 }
+
+export default MyReservationsPage;
